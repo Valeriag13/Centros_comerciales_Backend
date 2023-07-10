@@ -38,11 +38,36 @@ exports.consultUser = (req, res) => {
           res.status(200).json({ message:'true',data: {user: result.user, rol: result.rol}});
         } else {
           // Los datos no coinciden
-          res.status(404).json({ message: 'false' });
+          res.json({ message: 'false' });
         }
       })
       .catch(error => {
         console.error(error);
         res.status(500).json({ message: 'Ha ocurrido un error, intentalo más tarde' });
       });
+};
+
+exports.consultEmail = (req, res) => {
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).send({
+      message: "Los datos del producto no pueden quedar vacios"
+    });
+  }
+
+  const { user } = req.body;
+
+  Login.findOne({ user: user})
+    .then(result => {
+      if (result) {
+        // Los datos coinciden
+        res.status(200).json({ message:'true'});
+      } else {
+        // Los datos no coinciden
+        res.json({ message: 'false' });
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: 'Ha ocurrido un error, intentalo más tarde' });
+    });
 };

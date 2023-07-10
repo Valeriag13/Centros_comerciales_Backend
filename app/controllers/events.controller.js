@@ -33,11 +33,11 @@ exports.consultEvent = (req, res) => {
   
     const { place } = req.body;
   
-    Events.findOne({ place: place })
+    Events.find({ place: place })
       .then(result => {
         if (result) {
           // Los datos coinciden
-          res.status(200).json({message: 'true', data: [result]});
+          res.status(200).json({message: 'true', data: result});
         } else {
           // Los datos no coinciden
           res.status(404).json({ message: 'false' });
