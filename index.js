@@ -21,12 +21,7 @@ mongoose.connect(dbConfig.url, dbConfig.options).then(
         process.exit();
     });
 
-var port = process.env.PORT || 3000;
-
-app.use(cors({
-    origin: 'http://localhost:4200',
-}));
-
+var port = process.env.PORT || 4000;
 
 app.get('/', (req, res) => {
     res.json({
